@@ -18,8 +18,8 @@ public class WebhookController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> receiveFigmaWebhook(@RequestParam String s) {
-        notifyAllDevelopers(s);
+    public ResponseEntity<Void> receiveFigmaWebhook(@RequestParam String passcode) {
+        notifyAllDevelopers(passcode);
         return ResponseEntity.ok().build();
     }
 
