@@ -2,10 +2,9 @@ package com.example.webhook.controller;
 
 import com.example.webhook.email.EmailSender;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/webhook")
@@ -17,9 +16,9 @@ public class WebhookController {
         this.emailSender = emailSender;
     }
 
-    @PostMapping
-    public ResponseEntity<Void> receiveFigmaWebhook(@RequestParam String passcode) {
-        notifyAllDevelopers(passcode);
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<Void> receiveFigmaWebhook(@RequestBody Map<String, Object> payload) {
+        notifyAllDevelopers(payload.toString());
         return ResponseEntity.ok().build();
     }
 
