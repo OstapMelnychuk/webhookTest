@@ -1,6 +1,7 @@
 package com.example.webhook.controller;
 
 import com.example.webhook.email.EmailSender;
+import com.example.webhook.responce.FileCommentWebhookResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,26 +20,28 @@ public class WebhookController {
         this.emailSender = emailSender;
     }
 
-//    @PostMapping(consumes = "application/json")
-//    public ResponseEntity<Void> receiveFigmaWebhook(@RequestBody Map<String, Object> payload) {
-//        notifyAllDevelopers(payload.toString());
+//    @PostMapping
+//    public ResponseEntity<Void> receiveFigmaWebhook(HttpServletRequest request) {
+//        StringBuilder result = new StringBuilder();
+//        try {
+//            BufferedReader reader = request.getReader();
+//            String buf;
+//            while((buf = reader.readLine()) != null) {
+//                result.append(buf);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(result);
+//        notifyAllDevelopers(result.toString());
 //        return ResponseEntity.ok().build();
 //    }
 
+    //@PostMapping(consumes = "application/json")
     @PostMapping
-    public ResponseEntity<Void> receiveFigmaWebhook(HttpServletRequest request) {
-        StringBuilder result = new StringBuilder();
-        try {
-            BufferedReader reader = request.getReader();
-            String buf;
-            while((buf = reader.readLine()) != null) {
-                result.append(buf);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(result);
-        notifyAllDevelopers(result.toString());
+    public ResponseEntity<Void> receiveFigmaWebhook(@RequestBody FileCommentWebhookResponse response) {
+        System.out.println(response);
+        notifyAllDevelopers(response.toString());
         return ResponseEntity.ok().build();
     }
 
